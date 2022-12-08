@@ -1,3 +1,9 @@
+mod menu;
+
+use crate::menu::*;
+
 fn main() {
-    println!("Hello, world!");
+    main_menu();
 }
+
+
