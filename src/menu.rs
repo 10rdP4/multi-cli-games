@@ -1,40 +1,42 @@
-use std::io::{self, BufRead};
+use std::io;
 
-pub fn main_menu(){
-    let game_list: Vec<_> = vec![
-        "Tictactoe",
-        "Hangman"
-        ];
+use crate::games::tictactoe;
 
-    println!("--------------------------\n\
+pub fn main_menu() {
+    let game_list: Vec<_> = vec!["Tictactoe", "Hangman"];
+
+    loop {
+        println!(
+            "--------------------------\n\
             Welcome to multi-cli-games\n\
-            --------------------------\n");
-    
-    println!("Please select a game:");
-    for (pos, game) in game_list.iter().enumerate() {
-        println!("{} -- {}", pos + 1, game);
+            --------------------------\n"
+        );
+
+        println!("Please select a game:");
+        for (pos, game) in game_list.iter().enumerate() {
+            println!("{} -- {}", pos + 1, game);
+        }
+        println!("0 -- exit\n>>>");
+
+        let mut input = String::new();
+        io::stdin()
+            .read_line(&mut input)
+            .expect("Failed to read input");
+
+        let input = input.trim();
+
+        match input {
+            "0" => {
+                println!("Bye :) ");
+                std::process::exit(0);
+            },
+            "1" => {
+                tictactoe::start_game();
+            },
+            "2" => todo!(),
+            "3" => todo!(),
+            "4" => todo!(),
+            _ => todo!(),
+        }
     }
-    println!("0 -- exit\n>>>");
-    let mut selected_game = String::new();
-
-    get_input(&mut selected_game).unwrap();
-
-    match selected_game.as_str() {
-        "0" => todo!(),
-        "1" => todo!(),
-        "2" => todo!(),
-        "3" => todo!(),
-        "4" => todo!(),
-        _ => todo!()
-        
-    }
-
-}
-
-fn get_input(selection: &mut String) -> io::Result<()> {
-    let stdin = io::stdin();
-    let mut handle = stdin.lock();
-
-    handle.read_line( selection)?;
-    Ok(())
 }
