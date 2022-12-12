@@ -1,4 +1,5 @@
 use std::io;
+
 pub struct TicTacToe {
     grid: [[Option<char>; 3]; 3],
     current_player: char,
@@ -16,11 +17,19 @@ impl TicTacToe {
 
     fn play_move(&mut self) {
         println!("Turn of player: {}", self.current_player);
-        let row = player_input("row");
-        let col = player_input("col");
+        loop {
+            let row = player_input("row");
+            let col = player_input("col");
 
-        self.grid[row][col] = Some(self.current_player);
-        self.current_player = if self.current_player == 'X' { 'O' } else { 'X' };
+            if !self.grid[row][col].is_none(){
+                println!("That cell is already occupied!!");
+            }
+            else {
+                self.grid[row][col] = Some(self.current_player);
+                self.current_player = if self.current_player == 'X' { 'O' } else { 'X' };
+                break;
+            }
+        }
     }
 
     fn check_game_over(&mut self) {
@@ -49,6 +58,17 @@ impl TicTacToe {
         }
     }
 
+    fn check_left_cells(&mut self){
+        for row in 0..3{
+            for col in 0..3{
+                if self.grid[row][col].is_none(){
+                    return;
+                }
+            }
+        }
+        self.outcome = Some('D');
+    }
+
     fn print_grid(&self) {
         println!("   0  1  2");
         for row in 0..3 {
@@ -68,11 +88,16 @@ pub fn start_game() {
     while game.outcome.is_none() {
         game.print_grid();
         game.play_move();
+        game.check_left_cells();
         game.check_game_over();
     }
 
     game.print_grid();
-    println!("Player {} wins!!\n\n", game.outcome.unwrap());
+    if game.outcome.unwrap() == 'D' {
+        println!("Draw!!!");
+    }else{
+        println!("Player {} wins!!\n\n", game.outcome.unwrap());
+    }
 }
 
 fn player_input(pos: &str) -> usize {
@@ -96,5 +121,49 @@ fn player_input(pos: &str) -> usize {
                 println!("Invalid value: {}", result);
             }
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::games::tictactoe::TicTacToe;
+
+    #[test]
+    fn player_x_wins() {
+        let mut game = TicTacToe::new();
+        game.grid = [
+            [Some('X'), Some('O'), Some('O')],
+            [Some('X'), Some('X'), Some('O')],
+            [Some('O'), Some('O'), Some('X')],
+        ];
+        game.check_left_cells();
+        game.check_game_over();
+        assert_eq!(game.outcome, Some('X'));
+    }
+
+    #[test]
+    fn player_o_wins() {
+        let mut game = TicTacToe::new();
+        game.grid = [
+            [Some('X'), Some('O'), Some('O')],
+            [Some('X'), Some('X'), Some('X')],
+            [Some('O'), Some('O'), Some('O')],
+        ];
+        game.check_left_cells();
+        game.check_game_over();
+        assert_eq!(game.outcome, Some('X'));
+    }
+
+    #[test]
+    fn player_draw() {
+        let mut game = TicTacToe::new();
+        game.grid = [
+            [Some('X'), Some('O'), Some('O')],
+            [Some('O'), Some('X'), Some('X')],
+            [Some('O'), Some('X'), Some('O')],
+        ];
+        game.check_left_cells();
+        game.check_game_over();
+        assert_eq!(game.outcome, Some('D'));
     }
 }
