@@ -21,10 +21,9 @@ impl TicTacToe {
             let row = player_input("row");
             let col = player_input("col");
 
-            if !self.grid[row][col].is_none(){
+            if !self.grid[row][col].is_none() {
                 println!("That cell is already occupied!!");
-            }
-            else {
+            } else {
                 self.grid[row][col] = Some(self.current_player);
                 self.current_player = if self.current_player == 'X' { 'O' } else { 'X' };
                 break;
@@ -58,10 +57,10 @@ impl TicTacToe {
         }
     }
 
-    fn check_left_cells(&mut self){
-        for row in 0..3{
-            for col in 0..3{
-                if self.grid[row][col].is_none(){
+    fn check_left_cells(&mut self) {
+        for row in 0..3 {
+            for col in 0..3 {
+                if self.grid[row][col].is_none() {
                     return;
                 }
             }
@@ -95,7 +94,7 @@ pub fn start_game() {
     game.print_grid();
     if game.outcome.unwrap() == 'D' {
         println!("Draw!!!");
-    }else{
+    } else {
         println!("Player {} wins!!\n\n", game.outcome.unwrap());
     }
 }

@@ -8,7 +8,8 @@ Juegos a implementar y sus cositas interesantes:
     - Uso de estructuras y métodos.
     - Validaciones en la entrada del usuario.
     - Tests
-- [ ] Ahorcado
+- [X] Ahorcado
+    - Lectura de un archivo de texto
 - [ ] Buscaminas
 - [ ] Wordle
 - [ ] Solitario

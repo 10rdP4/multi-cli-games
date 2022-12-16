@@ -1,6 +1,6 @@
 use std::io;
 
-use crate::games::tictactoe;
+use crate::games::{tictactoe, hangman};
 
 pub fn main_menu() {
     let game_list: Vec<_> = vec!["Tictactoe", "Hangman"];
@@ -33,7 +33,9 @@ pub fn main_menu() {
             "1" => {
                 tictactoe::start_game();
             },
-            "2" => todo!(),
+            "2" => {
+                hangman::start_game();
+            },
             "3" => todo!(),
             "4" => todo!(),
             _ => todo!(),
