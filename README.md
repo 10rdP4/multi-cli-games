@@ -10,6 +10,8 @@ Juegos a implementar y sus cositas interesantes:
     - Tests
 - [X] Ahorcado
     - Lectura de un archivo de texto
+    - Numeros aleatorios
+    - Uso de crates externos
 - [ ] Buscaminas
 - [ ] Wordle
 - [ ] Solitario
