@@ -13,7 +13,9 @@ Juegos a implementar y sus cositas interesantes:
     - Numeros aleatorios
     - Uso de crates externos
 - [ ] Buscaminas
-- [ ] Wordle
+- [X] Wordle
+    - Crate colored para mostrar colores en la terminal
+    - Uso de Map y Filter sobre un iterador
 - [ ] Solitario
 - [ ] Blackjack
 
