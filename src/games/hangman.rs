@@ -1,7 +1,7 @@
 use rand::prelude::*;
 use std::char;
 use std::fs;
-use std::io;
+use std::io::{self, Write};
 
 struct Hangman {
     tries: u16,
@@ -22,7 +22,8 @@ impl Hangman {
     fn set_max_tries(&mut self) {
         loop {
             let mut input = String::new();
-            println!("Max number of tries: ");
+            print!("Max number of tries: ");
+            let _ = io::stdout().flush();
             io::stdin()
                 .read_line(&mut input)
                 .expect("Failed to read line");
@@ -54,7 +55,8 @@ impl Hangman {
         println!("Tries left: {}", self.tries);
         loop {
             let mut input = String::new();
-            println!("Char: ");
+            print!("Char: ");
+            let _ = io::stdout().flush();
             io::stdin()
                 .read_line(&mut input)
                 .expect("Failed to read line");
@@ -112,8 +114,8 @@ pub fn start_game() {
         }
         if game.tries == 0 {
             println!("Out of tries :(");
+            println!("Word: {}", game.guess_word);
             break;
         }
     }
-    println!("Game over...");
 }

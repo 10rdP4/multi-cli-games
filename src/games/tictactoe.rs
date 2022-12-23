@@ -1,4 +1,4 @@
-use std::io;
+use std::io::{self, Write};
 
 pub struct TicTacToe {
     grid: [[Option<char>; 3]; 3],
@@ -102,7 +102,8 @@ pub fn start_game() {
 fn player_input(pos: &str) -> usize {
     loop {
         let mut input = String::new();
-        println!("{}: ", pos);
+        print!("{}: ", pos);
+        let _ = io::stdout().flush();
         io::stdin()
             .read_line(&mut input)
             .expect("Failed to read line");
