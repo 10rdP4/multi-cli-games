@@ -1,9 +1,13 @@
-use std::io;
+use std::io::{self, Write};
 
-use crate::games::{tictactoe, hangman};
+use crate::games::{tictactoe, hangman, wordle};
 
 pub fn main_menu() {
-    let game_list: Vec<_> = vec!["Tictactoe", "Hangman"];
+    let game_list: Vec<_> = vec![
+        "Tictactoe",
+        "Hangman",
+        "Wordle"
+        ];
 
     loop {
         println!(
@@ -16,7 +20,10 @@ pub fn main_menu() {
         for (pos, game) in game_list.iter().enumerate() {
             println!("{} -- {}", pos + 1, game);
         }
-        println!("0 -- exit\n>>>");
+        println!("0 -- exit");
+        print!(">>> ");
+        let _ = io::stdout().flush();
+
 
         let mut input = String::new();
         io::stdin()
@@ -36,7 +43,9 @@ pub fn main_menu() {
             "2" => {
                 hangman::start_game();
             },
-            "3" => todo!(),
+            "3" => {
+                wordle::start_game();
+            },
             "4" => todo!(),
             _ => todo!(),
         }
